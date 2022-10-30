@@ -1,17 +1,13 @@
 import java.util.Scanner;
 
 public class DepositCalculator {
-    double calculateComplexPercent(double depositAmount,
-                                   double annualYearRate,
-                                   int depositPeriod) {
+    double calculateComplexPercent(double depositAmount, double annualYearRate, int depositPeriod) {
         double pay = depositAmount * Math.pow((1 + annualYearRate / 12), 12 * depositPeriod);
 
         return calculateProfit(pay, 2);
     }
 
-    double calculateSimplePercent(double depositAmount,
-                                  double annualYearRate,
-                                  int depositPeriod) {
+    double calculateSimplePercent(double depositAmount, double annualYearRate, int depositPeriod) {
         return calculateProfit(depositAmount + depositAmount * annualYearRate * depositPeriod, 2);
     }
 
@@ -22,25 +18,22 @@ public class DepositCalculator {
     }
 
     void calculateTheTotalAmountOfTheDeposit() {
-        int depositPeriod, action;
+        double annualYearRate = 0.06;
 
         Scanner scanner = new Scanner(System.in);
-
         System.out.println("Введите сумму вклада в рублях:");
         int depositAmount = scanner.nextInt();
-
         System.out.println("Введите срок вклада в годах:");
-        depositPeriod = scanner.nextInt();
+        int depositPeriod = scanner.nextInt();
         System.out.println("Выберите тип вклада: 1 - вклад с обычным процентом, 2 - вклад с капитализацией");
-        action = scanner.nextInt();
-        double out = 0;
-
+        int action = scanner.nextInt();
+        double outDeposit = 0;
         if (action == 1) {
-            out = calculateSimplePercent(depositAmount, 0.06, depositPeriod);
+            outDeposit = calculateSimplePercent(depositAmount, annualYearRate, depositPeriod);
         } else if (action == 2) {
-            out = calculateComplexPercent(depositAmount, 0.06, depositPeriod);
+            outDeposit = calculateComplexPercent(depositAmount, annualYearRate, depositPeriod);
         }
-        System.out.println("Результат вклада: " + depositAmount + " за " + depositPeriod + " лет превратятся в " + out);
+        System.out.println("Результат вклада: " + depositAmount + " за " + depositPeriod + " лет превратятся в " + outDeposit);
     }
 
     public static void main(String[] args) {
